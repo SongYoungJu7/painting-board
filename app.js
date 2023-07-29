@@ -1,28 +1,48 @@
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
-const lineWidth = document.getElementById("line-width");
-const linePx = document.getElementById("line-px");
+const brushSize = document.getElementById("brush-size");
+const brushPx = document.getElementById("brush-px");
 const colorPicker = document.getElementById("color-picker");
 const colorOptions = Array.from(document.getElementsByClassName("color-options"));
+const toolBrush = document.getElementById("tool-brush");
+const toolPaint = document.getElementById("tool-paint");
+const toolEraser = document.getElementById("tool-eraser");
+
+const CANVAS_WIDTH = 600;
+const CANVAS_HEIGHT = 600;
 
 let isPainting = false;
+let paintingMode = "brush";
 
-canvas.width = 600;
-canvas.height = 600;
+toolBrush.style.backgroundColor = "#fee7be";
 
-ctx.lineWidth = lineWidth.value;
-linePx.textContent = `line width: ${ctx.lineWidth}`;
+canvas.width = CANVAS_WIDTH;
+canvas.height = CANVAS_HEIGHT;
 
-// 그리기 기능
+ctx.lineWidth = brushSize.value;
+brushPx.textContent = `brush size: ${ctx.lineWidth}`;
+
+/* 그리기 기능 */
 canvas.addEventListener("mousemove", onMove);
 canvas.addEventListener("mousedown", startPainting);
 canvas.addEventListener("mouseup", cancelPainting);
 canvas.addEventListener("mouseleave", cancelPainting);
+canvas.addEventListener("click", onCanvasClick);
 
-// 설정 기능 (선 굵기, 색깔, ...)
-lineWidth.addEventListener("input", onLineWidthChange);
+/* 설정 기능 (선 굵기, 색깔, ...) */
+brushSize.addEventListener("input", onLineWidthChange);
+
+toolBrush.addEventListener("click", function () {
+    onChangeTool("brush");
+});
+toolPaint.addEventListener("click", function () {
+    onChangeTool("paint");
+});
+toolEraser.addEventListener("click", function () {
+    onChangeTool("eraser");
+});
+
 colorPicker.addEventListener("input", onColorChange);
-
 colorOptions.forEach(color => color.addEventListener("click", onColorClick));
 
 function onMove(event) {
@@ -45,7 +65,7 @@ function cancelPainting() {
 
 function onLineWidthChange(event) {
     ctx.lineWidth = event.target.value;
-    linePx.textContent = `line width: ${event.target.value}`;
+    brushPx.textContent = `brush size: ${event.target.value}`;
 }
 
 function onColorChange(event) {
@@ -59,4 +79,34 @@ function onColorClick(event) {
     ctx.strokeStyle = color;
     ctx.fillStyle = color;
     colorPicker.value = color;
+}
+
+function onChangeTool(toolName) {
+    if (toolName == "brush") {
+        paintingMode = "brush";
+        toolBrush.style.backgroundColor = "#fee7be";
+        toolPaint.style.backgroundColor = "";
+        toolEraser.style.backgroundColor = "";
+    } else if (toolName == "paint") {
+        paintingMode = "paint";
+        toolPaint.style.backgroundColor = "#fee7be";
+        toolBrush.style.backgroundColor = "";
+        toolEraser.style.backgroundColor = "";
+    } else if (toolName == "eraser") {
+        paintingMode = "eraser";
+        toolEraser.style.backgroundColor = "#fee7be";
+        toolBrush.style.backgroundColor = "";
+        toolPaint.style.backgroundColor = "";
+    }
+}
+
+function onCanvasClick() {
+    if (paintingMode == "paint") {
+        ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    } else if (paintingMode == "eraser") {
+        const currentColor = ctx.fillStyle;
+        ctx.fillStyle = "white";
+        ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+        ctx.fillStyle = currentColor;
+    }
 }
