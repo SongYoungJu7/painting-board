@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painting Board</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>🎨 Painting Board 🎨</h1>
+    <canvas></canvas>
+    <div id="painting-set">
+        <div id="line-set">
+            <p id="line-px"></p>
+            <input id="line-width" type="range" min="1" max="10" value="5">
+        </div>
+        <div id="color-set">
+            <div id="colors">
+                <button class="color-options" style="background-color: #d63031;" data-color="#d63031"></button>
+                <button class="color-options" style="background-color: #e17055;" data-color="#e17055"></button>
+                <button class="color-options" style="background-color: #fdcb6e;" data-color="#fdcb6e"></button>
+                <button class="color-options" style="background-color: #00b894;" data-color="#00b894"></button>
+                <button class="color-options" style="background-color: #0984e3;" data-color="#0984e3"></button>
+                <button class="color-options" style="background-color: #6c5ce7;" data-color="#6c5ce7"></button>
+                <button class="color-options" style="background-color: #2d3436;" data-color="#2d3436"></button>
+            </div>
+            <span>🖌️ pick your color!</span>
+            <input type="color" id="color-picker">
+        </div>
+    </div> 
+    <script src="app.js"></script>
+</body>
+</html>
