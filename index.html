@@ -18,6 +18,14 @@
             <i id="tool-brush" class="fa-solid fa-paintbrush"></i>
             <i id="tool-paint" class="fa-solid fa-fill-drip"></i>
             <i id="tool-eraser" class="fa-solid fa-eraser"></i>
+            <label for="text">
+                <i id="tool-text" class="fa-solid fa-font"></i>
+            </label>
+            <label for="file">
+                <i id="tool-file" class="fa-solid fa-image"></i>
+            </label>
+            <input type="file" accept="image/*" id="file" style="display: none"/>
+            <i class="fa-solid fa-floppy-disk"></i>
         </div>
         <div id="color-area">
             <div id="colors">
@@ -29,14 +37,12 @@
                 <button class="color-options" style="background-color: #6c5ce7;" data-color="#6c5ce7"></button>
                 <button class="color-options" style="background-color: #2d3436;" data-color="#2d3436"></button>
             </div>
-            <span>🖌️ pick your color!</span>
+            <div id="pick-color">
+                <span>🖌️ pick your color!</span>
             <input type="color" id="color-picker">
+            </div>
         </div>
-    </div> 
-    <div id="file-area">
-        <input type="file" accept="image/*" id="file"/>
     </div>
-    
     <script src="app.js"></script>
     <script src="https://kit.fontawesome.com/d07af470f5.js" crossorigin="anonymous"></script>
 </body>

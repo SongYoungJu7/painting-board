@@ -7,6 +7,8 @@ const colorOptions = Array.from(document.getElementsByClassName("color-options")
 const toolBrush = document.getElementById("tool-brush");
 const toolPaint = document.getElementById("tool-paint");
 const toolEraser = document.getElementById("tool-eraser");
+const file = document.getElementById("file");
+const fileStyle = document.getElementById("tool-file");
 
 const CANVAS_WIDTH = 600;
 const CANVAS_HEIGHT = 600;
@@ -90,16 +92,19 @@ function onChangeTool(toolName) {
         toolBrush.style.backgroundColor = "#fee7be";
         toolPaint.style.backgroundColor = "";
         toolEraser.style.backgroundColor = "";
+        fileStyle.style.backgroundColor = "";
     } else if (toolName == "paint") {
         paintingMode = "paint";
-        toolPaint.style.backgroundColor = "#fee7be";
         toolBrush.style.backgroundColor = "";
+        toolPaint.style.backgroundColor = "#fee7be";
         toolEraser.style.backgroundColor = "";
+        fileStyle.style.backgroundColor = "";
     } else if (toolName == "eraser") {
         paintingMode = "eraser";
-        toolEraser.style.backgroundColor = "#fee7be";
         toolBrush.style.backgroundColor = "";
         toolPaint.style.backgroundColor = "";
+        toolEraser.style.backgroundColor = "#fee7be";
+        fileStyle.style.backgroundColor = "";
     }
 }
 

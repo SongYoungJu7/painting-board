@@ -25,7 +25,10 @@ canvas {
 
 #tool-area {
     display: flex;
+    width: 25%;
+    justify-content: center;
     align-items: center;
+    flex-flow: row wrap;
 }
 
 #tool-area i {
@@ -38,7 +41,18 @@ canvas {
     width: 35px;
     height: 35px;
     border-radius: 50%;
-    margin: 3px;
+    margin: 5px;
+}
+
+.fa-floppy-disk {
+    background-color: #ffbe4d;
+    color: white;
+}
+
+#color-area {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 #colors {
@@ -46,19 +60,22 @@ canvas {
 }
 
 .color-options {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
     border: none;
     cursor: pointer;
 }
 
-#color-picker {
-    margin-left: 5px;
+#pick-color {
+    display: flex;
+    align-items: center;
 }
 
-#file-area {
-    display: flex;
-    width: 600px;
-    justify-content: left;
+#color-picker {
+    margin-left: 10px;
+}
+
+#file {
+    width: 300px;
 }
