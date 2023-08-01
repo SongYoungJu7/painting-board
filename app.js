@@ -45,6 +45,9 @@ toolEraser.addEventListener("click", function () {
 colorPicker.addEventListener("input", onColorChange);
 colorOptions.forEach(color => color.addEventListener("click", onColorClick));
 
+/* 파일 기능 */
+file.addEventListener("change", onFileChange);
+
 function onMove(event) {
     if (isPainting) {
         ctx.lineTo(event.offsetX, event.offsetY);
@@ -108,5 +111,22 @@ function onCanvasClick() {
         ctx.fillStyle = "white";
         ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
         ctx.fillStyle = currentColor;
+    }
+}
+
+function onFileChange(event) {
+    const file = event.target.files[0];
+    const url = URL.createObjectURL(file);
+    const image = new Image();
+    image.src = url;
+    image.onload = function () {
+        let imageW = Number(image.naturalWidth);
+        let imageH = Number(image.naturalHeight);
+        const scaleFactor = Math.min(CANVAS_WIDTH / imageW, CANVAS_HEIGHT / imageH);
+        imageW *= scaleFactor;
+        imageH *= scaleFactor;
+        const centerX = (CANVAS_WIDTH / 2) - (imageW / 2);
+        const centerY = (CANVAS_WIDTH / 2) - (imageH / 2);
+        ctx.drawImage(image, centerX, centerY, imageW, imageH);
     }
 }

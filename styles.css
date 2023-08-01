@@ -15,11 +15,12 @@ canvas {
     margin: auto;
 }
 
-#setting-area {
+#drawing-area {
     display: flex;
     width: 600px;
     justify-content: space-between;
     margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 #tool-area {
@@ -56,3 +57,8 @@ canvas {
     margin-left: 5px;
 }
 
+#file-area {
+    display: flex;
+    width: 600px;
+    justify-content: left;
+}
