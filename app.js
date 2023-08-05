@@ -9,7 +9,8 @@ const toolPaint = document.getElementById("tool-paint");
 const toolEraser = document.getElementById("tool-eraser");
 const file = document.getElementById("file");
 const textInput = document.getElementById("text");
-const textLabel = document.getElementById("tool-text")
+const textLabel = document.getElementById("tool-text");
+const toolSave = document.getElementById("tool-save");
 
 const CANVAS_WIDTH = 600;
 const CANVAS_HEIGHT = 600;
@@ -58,6 +59,9 @@ textLabel.addEventListener("click", function () {
     textInput.setAttribute('style', 'opacity: 1;');
 });
 canvas.addEventListener("dblclick", onDoubleClick);
+
+/* 캔버스 이미지 저장 기능 */
+toolSave.addEventListener("click", onSaveClick);
 
 
 function onMove(event) {
@@ -165,4 +169,12 @@ function onDoubleClick(event) {
     }
     ctx.restore();
     textInput.value = "";
+}
+
+function onSaveClick() {
+    const url = canvas.toDataURL();
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "myDrawing.png";
+    a.click();
 }
