@@ -8,7 +8,8 @@ const toolBrush = document.getElementById("tool-brush");
 const toolPaint = document.getElementById("tool-paint");
 const toolEraser = document.getElementById("tool-eraser");
 const file = document.getElementById("file");
-const fileStyle = document.getElementById("tool-file");
+const textInput = document.getElementById("text");
+const textLabel = document.getElementById("tool-text")
 
 const CANVAS_WIDTH = 600;
 const CANVAS_HEIGHT = 600;
@@ -22,6 +23,7 @@ canvas.width = CANVAS_WIDTH;
 canvas.height = CANVAS_HEIGHT;
 
 ctx.lineWidth = brushSize.value;
+ctx.lineCap = "round";
 brushPx.textContent = `brush size: ${ctx.lineWidth}`;
 
 /* 그리기 기능 */
@@ -49,6 +51,14 @@ colorOptions.forEach(color => color.addEventListener("click", onColorClick));
 
 /* 파일 기능 */
 file.addEventListener("change", onFileChange);
+
+/* 텍스트 입력 기능 */
+textLabel.addEventListener("click", function () {
+    onChangeTool("text");
+    textInput.setAttribute('style', 'opacity: 1;');
+});
+canvas.addEventListener("dblclick", onDoubleClick);
+
 
 function onMove(event) {
     if (isPainting) {
@@ -92,19 +102,28 @@ function onChangeTool(toolName) {
         toolBrush.style.backgroundColor = "#fee7be";
         toolPaint.style.backgroundColor = "";
         toolEraser.style.backgroundColor = "";
-        fileStyle.style.backgroundColor = "";
+        textLabel.style.backgroundColor = "";
+        textInput.setAttribute('style', 'opacity: 0;');
     } else if (toolName == "paint") {
         paintingMode = "paint";
         toolBrush.style.backgroundColor = "";
         toolPaint.style.backgroundColor = "#fee7be";
         toolEraser.style.backgroundColor = "";
-        fileStyle.style.backgroundColor = "";
+        textLabel.style.backgroundColor = "";
+        textInput.setAttribute('style', 'opacity: 0;');
     } else if (toolName == "eraser") {
         paintingMode = "eraser";
         toolBrush.style.backgroundColor = "";
         toolPaint.style.backgroundColor = "";
         toolEraser.style.backgroundColor = "#fee7be";
-        fileStyle.style.backgroundColor = "";
+        textLabel.style.backgroundColor = "";
+        textInput.setAttribute('style', 'opacity: 0;');
+    } else if (toolName == "text") {
+        paintingMode = "text";
+        toolBrush.style.backgroundColor = "";
+        toolPaint.style.backgroundColor = "";
+        toolEraser.style.backgroundColor = "";
+        textLabel.style.backgroundColor = "#fee7be";
     }
 }
 
@@ -134,4 +153,16 @@ function onFileChange(event) {
         const centerY = (CANVAS_WIDTH / 2) - (imageH / 2);
         ctx.drawImage(image, centerX, centerY, imageW, imageH);
     }
+}
+
+function onDoubleClick(event) {
+    ctx.save();
+    const text = textInput.value;
+    ctx.lineWidth = 1;
+    ctx.font = "48px serif";
+    if (text !== "") {
+        ctx.fillText(text, event.offsetX, event.offsetY);
+    }
+    ctx.restore();
+    textInput.value = "";
 }

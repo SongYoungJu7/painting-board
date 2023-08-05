@@ -29,6 +29,7 @@ canvas {
     justify-content: center;
     align-items: center;
     flex-flow: row wrap;
+    position: relative;
 }
 
 #tool-area i {
@@ -78,4 +79,11 @@ canvas {
 
 #file {
     width: 300px;
+}
+
+#text {
+    opacity: 0;
+    position: absolute;
+    margin-top: 5px;
+    top: 90px;
 }
